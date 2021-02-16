@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+{% block title %}Exam Detail{% endblock %}
+
+
+
+{% block body %}
+    {% if not has_answered and not is_exam_active %}
+        <!-- didn't answered the exam and exam has passed -->
+        <hr/>
+        <h2>You didn't attend to this exam.</h2>
+    {% elif not has_answered and is_exam_active %}
+        <!-- exam edit page -->
+        <h2>Exam is Ready.</h2>
+        <a class="btn btn-primary" href="{{start_exam_url}}">Start Exam</a>   
+
+    {% elif has_answered and not is_exam_active %}
+        <!-- show the results -->
+        <table class="table">
+            <thead >
+                <tr>
+                    <td style="width: 50%;">
+                        Question
+                    </td>
+                    <td>
+                        Your Answer
+                     </td>
+                     <td>
+                        Correct Answer
+                     </td>
+                     <td>
+                        Result
+                     </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eq in exam_questions %}
+                    <tr>
+                        <td style="width: 50%;">
+                            {{eq.question_text}}
+                        </td>
+                        <td >
+                            {{eq.student_answer.text}}
+                        </td>
+                        <td>
+                            {{eq.correct_answer.text}}
+                        </td>
+                        <td>
+                            {% if eq.is_answer_true%}
+                                <i class="fa fa-check"></i>
+                            {%else%}
+                                <i class="fa fa-window-close"></i>
+                            {%endif%}
+                        </td>
+                    </tr>
+                {% endfor %}
+        
+            </tbody>
+        </table>
+
+        <p> your score: {{score}}</p>
+
+    {% elif has_answered and is_exam_active %}
+        <!-- exam edit page -->
+        <h2>Exam is Ready.</h2>
+        <a class="btn btn-primary" href="{{start_exam_url}}">Start Exam</a>   
+    {% endif %}
+
+
+{% endblock %}

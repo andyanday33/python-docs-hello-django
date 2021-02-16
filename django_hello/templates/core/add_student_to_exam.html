@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+{% block title %}Student Exam Access Create{% endblock %}
+{% load bootstrap %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="jumbotron">
+      <h1>{{exam.name}}</h1>
+    </div>
+</div>
+<h3>Add a student to this exam.</h3>
+<hr/>
+<form action="{% url 'add_student_to_exam' exam_pk %}" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+<hr/>
+<h1>Current students on this exam</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <td style="width:60%">
+               Student Name
+            </td>
+            <td>
+                Delete
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+            <tr>
+                <td style="width:60%">
+                     {{student.username}}
+                </td>
+                <td>
+                    <a href="{% url 'add_student_to_exam' exam_pk student.pk %}" > Remove Student</a>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

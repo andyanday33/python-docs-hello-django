@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+{% block title %}Giriş Yapın{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+{% if request.user.is_authenticated %}
+
+    {% if user_type == 2 %}
+        {%comment%} instuctor here {%endcomment%}
+        
+        <div class="container">
+            <div class="jumbotron">
+            <h3>Instuctor: {{request.user.username}}</h3>
+            </div>
+        </div>
+        <div>
+        <a href="{% url 'exam_list' %}">Exams</a>
+
+    {% else %}
+        {% if user_type == 1 %}
+        {%comment%} student here {%endcomment%}
+        <div class="container">
+            <div class="jumbotron">
+                
+            <h3>Student: {{request.user.username}}</h3>
+            </div>
+        </div>
+            <a class="btn btn-primary" href="{% url 'student_exam_list' %}">My Exams</a>
+        {% else %}
+            <h1 > Please <a href="{% url 'login'%}">login here.</a></h1>
+
+        {% endif %}
+    {% endif %}
+
+{% else %}
+<h1 > Please <a href="{% url 'login'%}">login here.</a></h1>
+{% endif %}
+
+
+{% endblock %}

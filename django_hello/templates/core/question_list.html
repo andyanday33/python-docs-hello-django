@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block title %}Question List{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+{% for question in questions %}
+    <a href="{% url 'question_detail' question.exam.pk question.pk %}">{{question.pk}} - {{question.text}}</a>
+{% endfor %}
+{% endblock %}

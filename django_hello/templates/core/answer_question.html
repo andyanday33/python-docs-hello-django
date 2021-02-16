@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block title %}Answer Question{% endblock %}
+{% load bootstrap %}
+
+
+{% block body %}
+<h1>Question: {{question}} </h1>
+{{form_action_url}}
+<hr/>
+<form action="{{form_action_url}}" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+<a class="btn btn-primary" href="{{next_url}}">> Next</a>
+{% endblock %}

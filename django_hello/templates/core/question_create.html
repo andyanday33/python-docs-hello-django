@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block title %}Question Create{% endblock %}
+{% load bootstrap %}
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'question_add' exam_pk=exam_pk %}" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+{% endblock %}

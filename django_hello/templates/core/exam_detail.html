@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% block title %}Exam List{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+<div class=" btn-group" style="display: flex;justify-content: center;">
+    <a class="btn btn-fluid  btn-primary" style="flex-grow: 1;" href="{% url 'question_add' exam_pk %}"> Add New Question</a>
+</div>
+<div class=" btn-group" style="display: flex;justify-content: center;">
+    <a class="btn btn-fluid  btn-success" style="flex-grow: 1;" href="{% url 'add_student_to_exam' exam_pk %}"> Add a Student to This Exam</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <td style="width:80%">
+               Questions
+            </td>
+            <td>
+                Delete
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+            <tr>
+                <td style="width:80%">
+                    <a href="{% url 'question_detail' question.exam.pk question.pk %}" > {{question.question_text}}</a>
+                </td>
+                <td>
+                    <a href="{% url 'question_delete' question.exam.pk question.pk %}"> <i class="fa fa-window-close"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+    
+ 
+
+
+{% endblock %}

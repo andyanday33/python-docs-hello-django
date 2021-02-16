@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+{% block title %}Exam List{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+
+<div class=" btn-group" style="display: flex;justify-content: center;">
+    <a class="btn btn-fluid  btn-primary" style="flex-grow: 1;" href="{% url 'exam_create' %}">
+        <i class="fa fa-plus"> </i>
+        New Exam</a>
+</div>
+
+
+
+
+<table class="table">
+    <thead >
+        <tr>
+            <td style="width: 60%;">
+               Exam
+            </td>
+            <td>
+                Start Date
+             </td>
+             <td>
+                End Date
+             </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exam in exams %}
+            <tr>
+                <td style="width: 60%;">
+                    <a href="{% url 'exam_detail' exam.pk%}" > <a href="{% url 'exam_detail' exam.pk %}">{{exam.name}}</a></a>
+                </td>
+                <td >
+                    {{exam.start_date}}
+                </td>
+                <td>
+                    {{exam.end_date}}
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

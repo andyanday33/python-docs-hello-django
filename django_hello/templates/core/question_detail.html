@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+
+{% load bootstrap %}
+
+{% block title %}Question {% endblock %}
+
+
+{% block body %}
+
+
+
+
+
+<div class="container">
+    <div class="jumbotron">
+      <h1>Question: {{question.question_text}}</h1>
+    </div>
+</div>
+<div>
+    <h3>Add a New Question Choice</h3>
+    <form action="{% url 'question_detail' exam_pk question_pk %}" method="post">
+        {% csrf_token %}
+        {{ choice_form|bootstrap }}
+        <input class="btn  btn-primary" type="submit" value="Submit">
+    </form>
+</div>
+<hr/>
+
+{%if question_choices%}
+<div>
+    <h3>Other Question Choices</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+              <th scope="col">Text</th>
+              <th scope="col">Delete</th>
+              <th scope="col">Correct</th>
+            </tr>
+          </thead>
+        <tbody >
+            {% for qc in question_choices %}
+            <tr>
+                <td>
+                    {{qc.text}}              
+                    {% if qc.is_true_choice %}
+                        <i class="fa fa-check"></i>
+                    {% else %}
+                        <i class="fa fa-window-close"></i>
+                    {% endif %}
+                </td>
+
+                <td>
+                    <a href="{% url 'question_choice_delete' qc.question.exam.pk qc.question.pk qc.pk%}">Delete</a>
+                </td>
+                <td>
+                    
+                    {% if qc.is_true_choice %}
+                        <a href="{% url 'question_choice_toggle' qc.question.exam.pk qc.question.pk qc.pk%}">Mark False</a>
+                    {% else %}
+                         <a href="{% url 'question_choice_toggle' qc.question.exam.pk qc.question.pk qc.pk%}">Mark True</a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{%else%}
+
+<div>
+    <h4>You don't have any question choices yet.</h4>
+</div>
+
+{%endif%}
+
+{% endblock %}

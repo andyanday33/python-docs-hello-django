@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% block css %}{% endblock %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+
+    <body>
+      
+
+      
+
+        <!-- END  -->
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-8">
+
+              <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Online Educational Assesment System</a>
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarText"
+                    aria-controls="navbarText"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
+                    <i class="fas fa-bars"></i>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'homepage'%}">Home</a>
+                      </li>
+                      {% if request.user.is_authenticated %}
+     
+                      <li class="nav-item active">
+                          <a class="nav-link" href="{% url 'mylogout'%}">Log Out <span class="sr-only"></span></a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item ">
+                          <a class="nav-link" href="{% url 'login'%}">Login</a>
+                        </li>
+                      {% endif %}
+                    </ul>
+                    <span class="navbar-text"> </span>
+                  </div>
+                </div>
+              </nav>
+
+
+
+
+
+              <hr class="mt-0 mb-4">
+              {% include 'core/django_messages.html' %}
+
+              {% block body %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </body>
+</html>

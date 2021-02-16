@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+{% block title %}Giriş Yapın{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+  <h1 class="display-5">Hey, it's good to see you back.</h1>
+  <hr class="my-4">
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Login</button>
+    </form>
+</div>
+</div>
+
+
+{% endblock %}
